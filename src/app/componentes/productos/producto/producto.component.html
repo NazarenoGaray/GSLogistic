@@ -1,0 +1,40 @@
+    <div class="container py-5">
+      <app-spinner *ngIf="getEstado() | async"></app-spinner>
+      <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 col-xl-4">
+          <div class="card text-black">
+            <div class="d-flex justify-content-end">
+              <a [routerLink]="['/modificar-producto', productoId]">
+                  <i class="fas fa-edit fa-lg text-primary"></i>
+              </a>
+          </div>
+            <!-- <i class="fab fa-apple fa-lg pt-3 pb-1 px-3"></i> -->
+            <img [src]="producto.imagenUrl"
+              class="card-img-top" alt="Apple Computer" />
+            <div class="card-body">
+              <div class="text-center">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="text-muted mb-4">{{ producto.material }}</p>
+              </div>
+              <div>
+                <div class="d-flex justify-content-between">
+                  <span>Cantidad</span><span>{{ producto.cantidad }}u.</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Disponible</span><span>{{ producto.cantidadDisponible }}u.</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Estado</span><span>{{ producto.estado }}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span>Ubicacion</span><span>{{ producto.rack }}-{{ producto.sectorRack }}.{{ producto.pisoRack }}</span>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between total font-weight-bold mt-4">
+                <span>Cliente</span><h6>{{ producto.cliente }}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

@@ -1,0 +1,63 @@
+<div class="card container-fluid margin col-11 col-sm-11 col-md-6 col-lg-6 col-xl-6 shadow">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <label class="h2 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">Alta Cliente</label>
+  </div>
+  <div class="container-hijo form-group d-flex justify-content-between">
+    <form [formGroup]="clienteForm" class="row form-group d-flex justify-content-between" (ngSubmit)="agregarCliente()">
+      <div class="form-floating padding mb-3 col-11 col-sm-11 col-md-6 col-lg-4 col-xl-4">
+        <input required type="text" class="form-control" id="nombre" formControlName="nombre" placeholder="Marcos">
+        <label for="nombre">Nombre </label>
+      </div>
+      <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+        <input required type="text" class="form-control" id="cuit" formControlName="cuit" placeholder="28596348"
+          (ngModelChange)="detectarCambiosCuit()" inputmode="numeric"
+          pattern="[0-9]{2}-[0-9]{8}-[0-9]{1}">
+        <label for="cuil">CUIT</label>
+        <div *ngIf="!cuilOk" class="text-danger">CUIT no válido</div>
+      </div>
+      <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+        <input required type="text" class="form-control" id="nombre" formControlName="telefono" placeholder="30123123123">
+        <label for="telefono">Telefono </label>
+      </div>
+      <div class="form-floating padding  mb-3 col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+        <input required type="text" class="form-control" id="nombre" formControlName="razonSocial" placeholder="cliente SA">
+        <label for="razonSocial">Razon Social </label>
+      </div>
+      <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <input required type="text" class="form-control" id="nombre" formControlName="email" placeholder="30123123123">
+        <label for="email">Correo </label>
+      </div>
+      <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+        <input required type="text" class="form-control" id="nombre" formControlName="calle" placeholder="Marcos">
+        <label for="calle">Calle </label>
+      </div>
+      <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+        <input required type="number" class="form-control" id="calle" formControlName="altura" placeholder="2501">
+        <label for="cuit">Altura </label>
+      </div>
+      <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+        <select required class="form-select" id="floatingSelectEstados" aria-label="Floating label select example"
+          formControlName="estado">
+          <option value="" disabled>Seleccione estado</option>
+          <option *ngFor="let estado of estados | async" [value]="estado.estado">
+            {{ estado.estado }}
+          </option>
+        </select>
+        <label for="floatingSelectEstados">Estado</label>
+      </div>
+      <div class="form-group col-12">
+        <label for="imagen">Logo del Cliente</label>
+        <input type="file" class="form-control" id="imagen" (change)="onImageSelected($event)" accept="image/*">
+      </div>
+      <div class="form-group col-12">
+        <img [src]="previewImageUrl" alt="Vista previa de la imagen" *ngIf="previewImageUrl" class="img-thumbnail">
+      </div>
+      <div class="row col-12 margin">
+        <div class="form-group d-flex justify-content-between">
+          <button type="submit" class="btn btn-success col-sm-5 col-md-5 col-lg-5 col-xl-5">Confirmar</button>
+          <a class="btn btn-danger col-sm-5 col-md-5 col-lg-5 col-xl-5" [routerLink]="['/']">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

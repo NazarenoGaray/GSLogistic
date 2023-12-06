@@ -1,0 +1,24 @@
+<div class="container margin col-11 col-sm-11 col-md-6 col-lg-6 col-xl-6">
+    <app-spinner *ngIf="getEstado() | async"></app-spinner>
+
+    <div class="row">
+        <div class="d-flex justify-content-end">
+            <a [routerLink]="['/modificar-usuario', usuarioId]">
+                <i class="fas fa-edit fa-lg text-primary"></i>
+            </a>
+        </div>
+        <div class="col-12 col-md-4">
+            <img [src]="usuario.photoURL" alt="{{ usuario.displayName }}" class="img-fluid rounded-circle">
+        </div>
+        <div class="col-12 col-md-8">
+            <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>               
+            <p><strong>Correo Electrónico:</strong> {{ usuario.email }}</p>
+            <p><strong>Telefono:</strong> {{ usuario.telefono }}</p>
+            <p><strong>CUIL:</strong> {{ usuario.cuil }}</p>
+            <p><strong>Rol:</strong> {{ usuario.rol }}</p>
+            <p><strong>Estado:</strong> {{ usuario.estado }}</p>
+            <p><strong>displayName:</strong> {{ usuario.displayName }}</p>
+            <!-- Contenedor para el botón de editar -->
+        </div>
+    </div>
+</div>

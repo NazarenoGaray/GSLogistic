@@ -1,0 +1,84 @@
+
+.section-padding {
+    padding: 140px 0;
+}
+.btn {
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 5px;
+    margin-top: 20px;
+    padding: 10px 24px;
+}
+
+.btn-brand {
+    background: #4e57d4;
+    border: #4e57d4;
+    color: #fff;
+    transition: background 0.5s, border 0.5s;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.08);
+}
+
+.btn-brand:hover {
+    background: #6970dd;
+    border: #6970dd;
+}
+
+.d-item {
+    height: 900px;
+}
+
+.d-img {
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.3);
+}
+
+.about .container {
+    position: relative;
+    z-index: 10;
+}
+
+.about .content h3 {
+    font-weight: 700;
+    font-size: 34px;
+    margin-bottom: 30px;
+}
+
+.about .content p {
+    margin-bottom: 30px;
+}
+.about .content .about-btn {
+    padding: 8px 30px 9px 30px;
+    color: #1863f0;
+    background: #fff;
+    border-radius: 50px;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 13px;
+}
+.about .content .about-btn:hover {
+    background: #295ded;
+    color: #fff;
+}
+.about .icon-boxes .icon-box {
+    margin-top: 30px;
+}
+.about .icon-boxes .icon-box i {
+    font-size: 40px;
+    color: #2756d6;
+    margin-bottom: 10px;
+}
+.about .icon-boxes .icon-box h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+}
+.about .icon-boxes .icon-box p {
+    font-size: 15px;
+    color: #848484;
+}
+.marginAbout {
+    margin-bottom: 3rem;
+}

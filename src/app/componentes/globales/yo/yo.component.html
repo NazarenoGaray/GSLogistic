@@ -1,0 +1,32 @@
+<div class="container-fluid">
+    <div class="profile row">
+        <div class="col-6">
+            <img class="avatar" src="https://avatars.githubusercontent.com/u/92490688?v=4" alt="Avatar">
+        <h2 class="name">{{ userInfo.name }}</h2>
+        <p class="bio">Biografía: {{userInfo.bio}}</p>
+        <div class="stats">
+            <div class="stat">
+                <span class="label">Repositorios públicos</span>
+                <span class="value"> {{userInfo.public_repos}} </span>
+            </div>
+            <div class="stat">
+                <span class="label">Seguidores</span>
+                <span class="value"> {{userInfo.followers}} </span>
+            </div>
+            <div class="stat">
+                <span class="label">Siguiendo</span>
+                <span class="value"> {{userInfo.following}} </span>
+            </div>
+        </div>
+        </div>
+        <div class="links col-6">
+            <a href="https://api.github.com/users/NazarenoGaray/gists{/gist_id}">Gists</a>
+            <a href="https://api.github.com/users/NazarenoGaray/starred{/owner}{/repo}">Starred</a>
+            <a href="https://api.github.com/users/NazarenoGaray/subscriptions">Subscriptions</a>
+            <a href="https://api.github.com/users/NazarenoGaray/orgs">Organizations</a>
+            <a href="https://api.github.com/users/NazarenoGaray/repos">Repositories</a>
+            <a href="https://api.github.com/users/NazarenoGaray/events{/privacy}">Events</a>
+            <a href="https://api.github.com/users/NazarenoGaray/received_events">Received Events</a>
+        </div>
+    </div>
+</div>

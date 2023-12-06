@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "gslogistic-446ee"
+  },
+  "targets": {
+    "gslogistic-446ee": {
+      "hosting": {
+        "GSL": [
+          "gslogistic-446ee"
+        ]
+      }
+    }
+  }
+}

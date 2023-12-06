@@ -1,0 +1,27 @@
+.padding{
+    padding: 0.5rem;
+    margin: 0 auto;
+
+}
+.margin{
+    margin: auto;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.btn{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.divider {
+    size: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    margin: 0 auto;
+}
+ 
+.centrar{
+    margin: 0 auto;
+}
+.shadow{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }

@@ -1,0 +1,29 @@
+.busqueda {
+  border-radius: 1rem;
+}
+
+input[type=text]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
+
+input[type=text]:placeholder {
+  color: #cccccc;
+}
+.btn-custom-width {
+  width: 4.8rem;
+}
+/* Si la pantalla es más grande que 768px, estos estilos se aplicarán */
+@media screen and (min-width: 768px) {
+  .ocultar-en-pantalla-pequena {
+    display: block; /* Mostrar el elemento */
+  }
+}
+
+/* Estilos para pantallas pequeñas */
+/* Si la pantalla es 768px o menos, estos estilos se aplicarán */
+@media screen and (max-width: 768px) {
+  .ocultar-en-pantalla-pequena {
+    display: none; /* Ocultar el elemento */
+  }
+}

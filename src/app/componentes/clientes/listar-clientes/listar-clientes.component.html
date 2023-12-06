@@ -1,0 +1,43 @@
+<div class="card container-fluid" id="content-lista">
+  <div class="container">
+    <div class="card-header container-hijo row align-items-center">
+      <div class="col-12 col-md-6">
+        <h2>Lista de Clientes</h2>
+      </div>
+      <div class="col-12 col-md-6">
+        <input class="form-control busqueda" type="text" [(ngModel)]="filtro" placeholder="Buscar">
+      </div>
+    </div>
+    <app-spinner *ngIf="getEstado() | async"></app-spinner>
+    <div class="table-responsive ">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="d-none d-sm-table-cell"></th>
+            <th>Nombre</th>
+            <th class="d-none d-sm-table-cell">Email</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let cliente of clientes | async">
+          <tr *ngIf="cumpleFiltro(cliente)">
+            <td class="d-none d-sm-table-cell"><img [src]="cliente.photoURL" alt="" style="width: 45px; height: 45px"
+                class="rounded-circle " /></td>
+            <td>{{ cliente.nombre }}</td>
+            <td class="d-none d-sm-table-cell">{{ cliente.email}}</td>
+            <td>{{ cliente.estado}}</td>
+            <td>
+              <a [routerLink]="['/modificar-cliente', cliente.id]">
+                <i class="fas fa-edit fa-lg text-primary"></i>
+              </a>
+              <a (click)="detallesCliente(cliente.id)">
+                <i class="fas fa-info-circle fa-lg text-info"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

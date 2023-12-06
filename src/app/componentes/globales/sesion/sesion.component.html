@@ -1,0 +1,25 @@
+<div class="wrapper fadeInDown d-flex flex-column justify-content-center align-items-center margin">
+  <div id="formContent" class="text-center">
+      <div class="fadeIn">
+          <p>Por favor inicie sesión.</p>
+      </div>
+      <app-spinner *ngIf="getEstado() | async"></app-spinner>
+      <form class="col-9 mx-auto"> 
+          <input type="text" id="Usuario" class="form-control" name="login" [(ngModel)]="email" placeholder="Usuario" >
+          <input type="password" id="password" class="form-control" name="pasword" [(ngModel)]="password" placeholder="Contraseña" >
+          
+          <button type="submit" class="fadeIn" (click)="onSubmit()">Iniciar sesión</button>
+          <div *ngIf="credenciales" class="alert alert-danger">Credenciales incorrectas</div>
+          
+          <hr class="my-4">
+
+          <a (click)="loginWithGoogle()" class="btn btn-google btn-user btn-block mb-3">
+              <i class="fab fa-google fa-fw"></i> Ingresar con Google
+          </a>
+      </form>
+          <!-- Remind Passowrd -->
+    <!-- <div id="formFooter">
+      <a class="underlineHover" href="/">Olvidaste la contraseña?</a>
+    </div> -->
+  </div>
+</div>

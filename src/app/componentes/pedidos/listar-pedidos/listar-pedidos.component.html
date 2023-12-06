@@ -1,0 +1,65 @@
+<app-spinner *ngIf="getEstado() | async"></app-spinner>
+<div class="card container-fluid" id="content-lista">
+    <div class="container">
+        <div class="card-header container-hijo row align-items-center">
+            <div class="col-12 col-md-4">
+                <h2>Lista de Pedidos</h2>
+            </div>
+            <div class="form-floating col-12 col-md-4">
+                <select required class="form-select" id="clientes" aria-label="Floating label select example"
+                    [(ngModel)]="cliente" *ngIf="usuarioActual && usuarioActual.rol !== 'Cliente'"
+                    (onchange)="aplicarFiltro($event)">
+                    <option value="">Todos</option>
+                    <option *ngFor="let cliente of clientes | async" [value]="cliente.nombre">
+                        {{ cliente.nombre }}
+                    </option>
+                </select>
+                <input type="text" class="form-control" id="cliente" [value]="cliente" placeholder="cliente"
+                    *ngIf="usuarioActual && usuarioActual.rol === 'Cliente'" readonly>
+                <label for="cliente">Cliente</label>
+            </div>
+            <div class="col-12 col-md-4">
+                <input class="form-control busqueda" type="text" [(ngModel)]="filtro" placeholder="Buscar">
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Pedido</th>
+                        <th>Cliente</th>
+                        <th>Estado</th>
+                        <th class="d-none d-sm-table-cell">Paqueteria</th>
+                        <th class="d-none d-sm-table-cell">Fecha</th>
+                        <th class="d-none d-sm-table-cell">Entregado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <app-spinner *ngIf="getEstado() | async"></app-spinner>
+                <tbody *ngFor="let pedido of pedidos | async">
+                    <tr *ngIf="cumpleFiltro(pedido)">
+                        <td>P-{{ pedido.numero }}</td>
+                        <td>{{ pedido.cliente }}</td>
+                        <td>{{ pedido.estado }}</td>
+                        <td class="d-none d-sm-table-cell">{{ pedido.paqueteria }}</td>
+                        <td class="d-none d-sm-table-cell">{{ pedido.fecha }}</td>
+                        <td class="d-none d-sm-table-cell">{{ pedido.fechaEntregado }}</td>
+                        <td>
+                            <a [routerLink]="['/modificar-pedido', pedido.id]">
+                                <i class="fas fa-edit fa-lg text-primary"></i>
+                            </a>
+                            <span *ngIf="procesar"> - </span>
+                            <a *ngIf="procesar" [routerLink]="['/procesar-pedido', pedido.id]">
+                                <i class="fa fa-retweet fa-lg text-success"></i>
+                            </a>
+                            <span> - </span>
+                            <a [routerLink]="['/pedido', pedido.id]">
+                                <i class="fas fa-info-circle fa-lg text-info"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

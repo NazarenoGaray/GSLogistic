@@ -1,0 +1,71 @@
+<div class="card container-fluid" id="content-lista">
+  <div class="container">
+    <div class="card-header container-hijo row align-items-center">
+      <div class="col-12 col-md-6">
+        <h2>Lista de usuarios</h2>
+      </div>
+      <div class="col-12 col-md-6">
+        <input class="form-control busqueda" type="text" placeholder="Buscar..." name=""
+        [value]="filtro" (input)="aplicarFiltro($event)">
+      </div>
+    </div>
+    <div class="table-responsive">
+      <app-spinner *ngIf="getEstado() | async"></app-spinner>
+      <table class="table table-striped">
+        <thead>
+          <tr >
+            <th class="d-none d-sm-table-cell"></th>
+            <th>Nombre</th>
+            <th class="d-none d-sm-table-cell">Email</th>
+            <th class="d-none d-sm-table-cell">Rol</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let usuario of usuarios | async" >
+          <tr *ngIf="cumpleFiltro(usuario)">
+            <td class="d-none d-sm-table-cell"><img [src]="usuario.photoURL" alt="" style="width: 45px; height: 45px"
+                class="rounded-circle " /></td>
+            <td>{{ usuario.apellido }} {{ usuario.nombre }}</td>
+            <td class="d-none d-sm-table-cell">{{ usuario.email }}</td>
+            <td class="d-none d-sm-table-cell">{{ usuario.rol }}</td>
+            <td>{{usuario.estado}} </td>
+            <td>
+              <a [routerLink]="['/modificar-usuario', usuario.id]">
+                <i class="fas fa-edit fa-lg text-primary"></i>
+              </a>
+              <a (click)="detallesUsuario(usuario.id)">
+                <i class="fas fa-info-circle fa-lg text-info"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- <ul class="list-group list-group-light">
+  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let usuario of usuarios | async">
+    <div class="d-flex align-items-center">
+      <img [src]="usuario.photoURL" alt="" style="width: 45px; height: 45px"
+        class="rounded-circle" />
+      <div class="ms-3">
+        <p class="fw-bold mb-1">{{ usuario.displayName }}</p>
+        <p class="text-muted mb-0">{{ usuario.email }}</p>
+      </div>
+    </div>
+  </li>
+
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center">
+      <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt="" style="width: 45px; height: 45px"
+        class="rounded-circle" />
+      <div class="ms-3">
+        <p class="fw-bold mb-1">John Doe</p>
+        <p class="text-muted mb-0">john.doe@gmail.com</p>
+      </div>
+    </div>
+    <span class="badge rounded-pill badge-success">desactive</span>
+  </li>
+</ul> -->

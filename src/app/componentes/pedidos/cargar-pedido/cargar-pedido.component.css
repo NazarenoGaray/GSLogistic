@@ -1,0 +1,23 @@
+.padding {
+    padding: 0.5rem;
+}
+
+.margin {
+    margin: auto;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.shadow {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.table-responsive {
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+}

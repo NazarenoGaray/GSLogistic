@@ -1,0 +1,197 @@
+<div class="card container-fluid margin col-11 col-sm-11 col-md-6 col-lg-6 col-xl-6 shadow">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <label class="h2 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">Modificar Pedido n° P-{{ numero }}</label>
+        <app-spinner *ngIf="getEstado() | async"></app-spinner>
+    </div>
+    <!-- ************** 1ra parte (Datos del pedido)************** -->
+
+    <div *ngIf="etapa === 'datosPedido'">
+        <div class="container-hijo form-group d-flex justify-content-between">
+            <form [formGroup]="pedidoForm" class="row form-group d-flex justify-content-between"
+                (ngSubmit)="irASeleccionProductos()">
+                <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <select required class="form-select" id="clientes" aria-label="Floating label select example"
+                        formControlName="cliente" *ngIf="usuarioActual && usuarioActual.rol !== 'Cliente'">
+                        <option value="" disabled>Seleccione cliente</option>
+                        <option *ngFor="let cliente of clientes | async" [value]="cliente.nombre">
+                            {{ cliente.nombre }}
+                        </option>
+                    </select>
+                    <input required type="text" class="form-control" id="cliente" formControlName="cliente"
+                        placeholder="av.blabla 1234" *ngIf="usuarioActual && usuarioActual.rol === 'Cliente'" readonly>
+
+                    <label for="cliente">Cliente
+                        <div *ngIf="clienteInvalido" class="text-danger">*</div>
+                    </label>
+                </div>
+
+                <ng-template #showInput>
+                    <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6"
+                        *ngIf="!usuarioActual.cliente; else showInput">
+                        <input required type="text" class="form-control" id="cliente" formControlName="cliente"
+                            placeholder="av.blabla 1234">
+                        <label for="cliente">Cliente</label>
+                    </div>
+                </ng-template>
+
+                <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <input required type="text" class="form-control" id="direccion" formControlName="direccion"
+                        placeholder="av.blabla 1234">
+                    <label for="direccion">Direccion
+                        <div *ngIf="direccionInvalido" class="text-danger">*</div>
+                    </label>
+                </div>
+
+                <div class="form-floating padding mb-3 col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <input required type="text" class="form-control" id="telefono" formControlName="telefono"
+                        placeholder="28596348" (ngModelChange)="telefonoValidator()" inputmode="numeric"
+                        pattern="[0-9]{2}-[0-9]{8}-[0-9]{1}">
+                    <label for="telefono">Telefono
+                        <div *ngIf="telefonoInvalido" class="text-danger">*</div>
+                    </label>
+                    <div *ngIf="telefonoInvalido">
+                        <small class="text-danger">Telefono de 8 o 10 numeros.</small>
+                    </div>
+                </div>
+
+                <!-- <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <select required class="form-select" id="estados" aria-label="Floating label select example"
+                        formControlName="estado" readonly>
+                        <option value="" disabled>Seleccione estado</option>
+                        <option *ngFor="let estado of estados | async" [value]="estado.estado">
+                            {{ estado.estado }}
+                        </option>
+                    </select> 
+                    <input required type="text" class="form-control" id="estado" formControlName="estado"
+                        placeholder="Nuevo" readonly>
+                    <label for="estados">Estado</label>
+                </div> -->
+
+                <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <select required class="form-select" id="PaqueteTipos" aria-label="Floating label select example"
+                        formControlName="paqueteria">
+                        <option value="" disabled>Seleccione Tipo</option>
+                        <option *ngFor="let pack of paqueteria | async" [value]="pack.tipo">
+                            {{ pack.tipo }}
+                        </option>
+                    </select>
+                    <label for="PaqueteTipos">Empaquetado
+                        <div *ngIf="paqueteriaInvalido" class="text-danger">*</div>
+                    </label>
+                </div>
+
+                <div class="form-floating padding mb-3 col-6 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                    <select required class="form-select" id="TipoEntrega" aria-label="Floating label select example"
+                        formControlName="tipoEntrega">
+                        <option value="" disabled>Seleccione tipo</option>
+                        <option *ngFor="let tipoEntrega of tiposEntrega | async" [value]="tipoEntrega.tipo">
+                            {{ tipoEntrega.tipo }}
+                        </option>
+                    </select>
+                    <label for="TipoEntrega">Tipo Entrega
+                        <div *ngIf="tipoEntregaInvalido" class="text-danger">*</div>
+                    </label>
+                </div>
+
+                <div class="row col-12 margin">
+                    <div class="form-group d-flex justify-content-between">
+                        <button type="submit"
+                            class="btn btn-success col-sm-5 col-md-5 col-lg-5 col-xl-5">Siguiente</button>
+                        <a class="btn btn-danger col-sm-5 col-md-5 col-lg-5 col-xl-5" [routerLink]="['/listar-pedidos']">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- ************** 2da parte (Seleccionar Producto/s)************** -->
+    <div *ngIf="etapa === 'seleccionProductos'">
+        <div class="container-hijo form-group d-flex justify-content-between">
+            <div class="row form-group d-flex justify-content-between">
+                <div class="padding">
+                    <div class="table-responsive form-floating padding mb-3 col-12">
+                        <div class="input-group">
+                            <input type="text" placeholder="Busacar..." name="" class="form-control busqueda"
+                                [value]="filtro" (input)="aplicarFiltro($event)">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
+                            </div>
+                        </div>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th class="d-none d-sm-table-cell">Material</th>
+                                    <th class="d-none d-sm-table-cell">Cantidad</th>
+                                    <th>Seleccionar</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let producto of productosList">
+                                <tr *ngIf="cumpleFiltro(producto)">
+                                    <td>{{ producto.nombre }}</td>
+                                    <td class="d-none d-sm-table-cell">{{ producto.material }}</td>
+                                    <td class="d-none d-sm-table-cell">{{ producto.cantidad }}/u</td>
+                                    <td>
+                                        <input type="checkbox" [(ngModel)]="producto.seleccionado">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row col-12 margin">
+                    <div class="form-group d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success col-sm-3 col-md-3 col-lg-3 col-xl-3"
+                            (click)="irAConfirmacion()">Siguiente</button>
+                        <button class="btn btn-secondary col-sm-3 col-md-3 col-lg-3 col-xl-3"
+                            (click)="irARegistroPedido()">Atrás</button>
+                        <a class="btn btn-danger col-sm-3 col-md-3 col-lg-3 col-xl-3" [routerLink]="['/listar-pedidos']">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ************** 3ra parte (Cantidad de cada producto)************** -->
+
+    <div *ngIf="etapa === 'confirmacion'">
+        <div class="container-hijo form-group d-flex justify-content-between">
+            <div class="row form-group d-flex justify-content-between">
+                <div class="padding">
+                    <div class="table-responsive form-floating padding mb-3 col-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th class="d-none d-sm-table-cell">Material</th>
+                                    <th class="d-none d-sm-table-cell">Cantidad</th>
+                                    <th>Cantidad Requerida</th>
+                                </tr> 
+                            </thead>
+                            <tbody *ngFor="let producto of productosList2">
+                                <tr *ngIf="producto.seleccionado">
+                                    <td>{{ producto.nombre }}</td>
+                                    <td class="d-none d-sm-table-cell">{{ producto.material }}</td>
+                                    <td class="d-none d-sm-table-cell">{{ producto.cantidad }}/u</td>
+                                    <td>
+                                        <input type="number" [(ngModel)]="producto.cantidadRequerida" [min]="1" 
+                                        (ngModelChange)="setCantidadRequerida(producto, $event)">
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row col-12 margin">
+                    <div class="form-group d-flex justify-content-between">
+                        <button type="submit" class="btn btn-success col-sm-3 col-md-3 col-lg-3 col-xl-3"
+                            (click)="confirmarPedido()">Confirmar</button>
+                        <button class="btn btn-secondary col-sm-3 col-md-3 col-lg-3 col-xl-3"
+                            (click)="irASeleccionProductos()">Atrás</button>
+                        <a class="btn btn-danger col-sm-3 col-md-3 col-lg-3 col-xl-3" [routerLink]="['/listar-pedidos']">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

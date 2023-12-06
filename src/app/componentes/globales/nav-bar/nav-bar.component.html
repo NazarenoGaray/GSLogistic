@@ -1,0 +1,114 @@
+<nav class="navbar navbar-expand-lg bg-black" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">GSL</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      [attr.aria-expanded]="isMenuOpen ? 'true' : 'false'" (click)="toggleMenu()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <app-spinner *ngIf="getEstado() | async"></app-spinner>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent" [ngClass]="{ 'show': isMenuOpen }">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+        <ng-container *ngIf="isLoggedIn() && usuarioActual">
+          <li class="nav-item dropdown" *ngIf="(linkUsuario | async)">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Usuarios
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/listar-usuarios" (click)="closeMenu()">Listar Usuarios</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="((linkClienteL | async)   ||( linkClienteA | async))">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Clientes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/listar-clientes" (click)="closeMenu()" 
+                *ngIf="linkClienteL | async">Listar clientes</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" routerLink="/alta-cliente" (click)="closeMenu()"
+                *ngIf="linkClienteA | async">Alta clientes</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="((linkProductoL | async)  ||(linkProductoC | async))" >
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Productos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/listar-productos" (click)="closeMenu()"
+                *ngIf="linkProductoL | async">Listar Productos</a></li>
+              <li>
+                <hr class="dropdown-divider" *ngIf="linkProductoL | async">
+              </li>
+              <li><a class="dropdown-item" routerLink="/cargar-producto" (click)="closeMenu()"
+                *ngIf="linkProductoC | async">Cargar Productos</a></li>
+              <li>
+                <hr class="dropdown-divider" *ngIf="linkProductoC | async">
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown" *ngIf="((linkPedidoC | async) ||( linkPedidoL | async))">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pedidos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="/listar-pedidos" (click)="closeMenu()"
+                *ngIf="linkPedidoL | async">Listar Pedidos</a></li>
+              <li>
+                <hr class="dropdown-divider" *ngIf="linkPedidoL | async">
+              </li>
+              <li><a class="dropdown-item" routerLink="/cargar-pedido" (click)="closeMenu()"
+                *ngIf="linkPedidoC | async">Cargar Pedido</a></li>
+              <li>
+                <hr class="dropdown-divider" *ngIf="linkPedidoC | async">
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" *ngIf="(linkChat | async)">
+            <a class="nav-link" routerLink="/chat" role="button" (click)="closeMenu()">
+              Chat
+            </a>
+          </li>
+        </ng-container>
+        <li class="nav-item ">
+          <a class="nav-link" routerLink="/nosotros" role="button"(click)="closeMenu()">
+            Nosotros
+          </a>
+        </li>
+        <li class="nav-item  ">
+          <a class="nav-link" routerLink="/contacto" role="button" aria-expanded="false"  (click)="closeMenu()">
+            Contacto
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto ">
+        <ng-container *ngIf="isLoggedIn() && usuarioActual">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img [src]="usuarioActual.photoURL" class="rounded-circle" height="22" alt="" loading="lazy" />
+              {{usuarioActual.displayName}}
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" (click)="detallesUsuario(usuarioActual.id)" routerLink="*" (click)="closeMenu()">Perfil</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li>
+                <a class="dropdown-item " (click)="cerrarSesion()" routerLink="*" (click)="closeMenu()">Cerrar Sesión</a>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+      <form class="d-flex" role="search">
+        <ng-container *ngIf="!isLoggedIn()">
+          <button class="btn btn-outline-primary" routerLink="/sesion" (click)="closeMenu()">Iniciar Sesión</button>
+        </ng-container>
+      </form>
+    </div>
+  </div>
+</nav>

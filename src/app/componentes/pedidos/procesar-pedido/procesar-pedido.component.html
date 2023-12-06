@@ -1,0 +1,93 @@
+<div #pdfContent class="card container-fluid margin col-11 col-md-6 shadow">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="col-12 col-lg-6">Pedido n°: P-{{pedido.numero}}</h3>
+        <h4 class="col-12 col-lg-6 text-end text-lg-start">Fecha: {{pedido.fecha}}</h4>
+        <app-spinner *ngIf="getEstado() | async"></app-spinner>
+    </div>
+    <div>
+        <div class="container-hijo form-group d-flex justify-content-center">
+            <form class="row form-group d-flex justify-content-between">
+                <div class="mb-3 col-6 col-lg-6 ">
+                    <label>Cliente: </label>
+                    <span class="text-underline"> {{ pedido.cliente }}</span>
+                </div>
+                <div class="mb-3 col-4 col-lg-6">
+                    <label>Solicitante: </label>
+                    <span class="text-underline"> {{ solicitante.apellido }} {{ solicitante.nombre }} </span>
+                </div>
+                <div class="mb-3 col-4 col-lg-6">
+                    <label>Estado: </label>
+                    <span class="text-underline"> {{ pedido.estado }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Dirección: </label>
+                    <span class="text-underline"> {{ pedido.direccion }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Teléfono: </label>
+                    <span class="text-underline"> {{ pedido.telefono }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Tipo Entrega: </label>
+                    <span class="text-underline"> {{ pedido.tipoEntrega }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Embalaje: </label>
+                    <span class="text-underline"> {{ pedido.paqueteria }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Operador: </label>
+                    <span class="text-underline" *ngIf="operador"> {{ operador.apellido }} {{ operador.nombre }}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <div class="container-hijo">
+            <div class="row">
+                <div class="mb-3">
+                    <div class="table-responsive mb-3">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th class="d-none d-sm-table-cell">Material</th>
+                                    <th class="d-none d-sm-table-cell">Stock</th>
+                                    <th>Cantidad</th>
+                                    <th>Ubicacion</th>
+                                    <th *ngIf="pedido.estado =='Nuevo'">
+                                        <i class="fa fa-check text-success"></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <td>{{ producto.nombre }}</td>
+                                    <td class="d-none d-sm-table-cell">{{ producto.material }}</td>
+                                    <td class="d-none d-sm-table-cell">{{ producto.cantidad }}/u</td>
+                                    <td class="">{{ producto.cantidadRequerida }}/u</td>
+                                    <td class="">{{ producto.rack }}-{{ producto.sectorRack }}.{{ producto.pisoRack }}
+                                    </td>
+                                  <td *ngIf="pedido.estado =='Nuevo'">
+                                        <input type="checkbox" [checked]="producto.seleccionado" (change)="toggleSeleccionProducto(producto)" >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Preparado')" *ngIf="pedido.estado =='Nuevo'" [disabled]="!todosProductosSeleccionados">Preparado</button>
+                        <!-- <button class="btn btn-danger" [routerLink]="['/ruta-de-destino']" (click)="cambiarEstadoPedido('Cancelado')" [disabled]="pedido.estado == 'Entregado'">Cancelar</button> -->
+                        <a class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Embalado')" *ngIf="pedido.estado =='Preparado'">Embalado</a>
+                        <a class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('En camino')" *ngIf="pedido.estado =='Embalado'">En camino</a>
+                        <a class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Entregado')" *ngIf="pedido.estado =='En camino'">Entregado</a>
+                        <a class="btn btn-warning" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Nuevo')" *ngIf="pedido.estado =='Entregado'">Reset</a>
+                        <a class="btn btn-secondary" [routerLink]="['/listar-pedidos']">Atrás</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

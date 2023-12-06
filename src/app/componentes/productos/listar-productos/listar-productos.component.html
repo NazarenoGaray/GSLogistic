@@ -1,0 +1,64 @@
+<div class="card container-fluid" id="content-lista">
+  <div class="container">
+    <div class="card-header container-hijo row align-items-center">
+      <div class="col-12 col-md-4">
+        <h2>Lista de Productos</h2>
+      </div>
+      <div class="form-floating col-12 col-md-4">
+        <select required class="form-select" id="clientes" aria-label="Floating label select example"
+        [(ngModel)]="cliente" *ngIf="usuarioActual && usuarioActual.rol !== 'Cliente'" (onchange)="aplicarFiltro($event)">
+          <option value="">Todos</option>
+          <option *ngFor="let cliente of clientes | async" [value]="cliente.nombre">
+            {{ cliente.nombre }}
+          </option>
+        </select>
+        <input type="text" class="form-control" id="cliente" [value]="cliente" placeholder="cliente"
+          *ngIf="usuarioActual && usuarioActual.rol === 'Cliente'" readonly>
+        <label for="cliente">Cliente</label>
+      </div>
+      <div class="col-12 col-md-4">
+        <input class="form-control busqueda" type="text" placeholder="Buscar..." name="" [value]="filtro"
+          (input)="aplicarFiltro($event)">
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="d-none d-sm-table-cell"></th>
+            <th>Nombre</th>
+            <th>Cliente</th>
+            <th class="d-none d-sm-table-cell">Material</th>
+            <th class="d-none d-sm-table-cell">Estado</th>
+            <th class="d-none d-sm-table-cell">Disponible</th>
+            <th class="d-none d-sm-table-cell">Ubicacion</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <app-spinner *ngIf="getEstado() | async"></app-spinner>
+        <tbody *ngFor="let producto of productos | async">
+          <tr *ngIf="cumpleFiltro(producto)">
+            <td class="d-none d-sm-table-cell" ><img [src]="producto.imagenUrl" alt="Foto" style="width: 45px; height: 45px"
+                class="rounded-circle " /></td>
+            <td>{{ producto.nombre }}</td>
+            <td>{{ producto.cliente }}</td>
+            <td class="d-none d-sm-table-cell">{{ producto.material }}</td>
+            <td class="d-none d-sm-table-cell">{{ producto.estado }}</td>
+            <td class="d-none d-sm-table-cell">{{ producto.cantidadDisponible }} u.</td>
+            <td class="d-none d-sm-table-cell">{{ producto.rack }}-{{producto.sectorRack}}-{{producto.pisoRack}} </td>
+            <td>
+              <a [routerLink]="['/modificar-producto', producto.id]">
+                <i class="fas fa-edit fa-lg text-primary"></i>
+              </a>
+
+              <span> - </span>
+              <a (click)="detallesProducto(producto.id)">
+                <i class="fas fa-info-circle fa-lg text-info"></i>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

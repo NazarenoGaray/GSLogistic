@@ -1,0 +1,59 @@
+.container {
+    margin: auto;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* Estilos para botones */
+.btn {
+    padding: 15px 30px;
+    font-size: 0.82rem;
+    border-radius: 5px;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+/* Estilos para tarjetas */
+.card {
+    padding: 10px;
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 2px 2px 15px #7c7c7ce5;
+    transform: scale(1.02);
+}
+
+/* .card .product-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.card-body {
+    padding-bottom: 0;
+}
+
+.card .text-muted {
+    font-size: 0.82rem;
+} */
+
+/* .card-img img {
+    padding-top: 10px;
+    width: inherit;
+    height: 180px;
+    object-fit: contain;
+    display: block;
+} */
+
+/* Estilos para filtros */
+/* #filterbar {
+    width: 30%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    float: left;
+} */
+

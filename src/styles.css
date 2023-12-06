@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    background-color: rgb(236, 235, 235);
+    /* O puedes usar un color en formato hexadecimal o RGB, por ejemplo:
+    background-color: #f2f2f2;
+    background-color: rgb(242, 242, 242);
+    */
+  }

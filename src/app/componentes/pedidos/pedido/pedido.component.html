@@ -1,0 +1,89 @@
+<div #pdfContent class="card container-fluid margin col-11 col-md-6 shadow">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h3 class="col-12 col-lg-6">Pedido n°: P-{{pedido.numero}}</h3>
+        <h4 class="col-12 col-lg-6 text-end text-lg-start">Fecha: {{pedido.fecha}}</h4>
+        <app-spinner *ngIf="getEstado() | async"></app-spinner>
+    </div>
+    <div>
+        <div class="container-hijo form-group d-flex justify-content-center">
+            <form class="row form-group d-flex justify-content-between">
+                <div class="mb-3 col-6 col-lg-6 ">
+                    <label>Cliente: </label>
+                    <span class="text-underline"> {{ pedido.cliente }}</span>
+                </div>
+                <div class="mb-3 col-4 col-lg-6">
+                    <label>Solicitante: </label>
+                    <span class="text-underline"> {{ solicitante.apellido }} {{ solicitante.nombre }} </span>
+                </div>
+                <div class="mb-3 col-4 col-lg-6">
+                    <label>Estado: </label>
+                    <span class="text-underline"> {{ pedido.estado }}</span>
+                    <i class="fa fa-check text-success" *ngIf="pedido.estado =='Entregado'"></i>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Dirección: </label>
+                    <span class="text-underline"> {{ pedido.direccion }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Teléfono: </label>
+                    <span class="text-underline"> {{ pedido.telefono }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Tipo Entrega: </label>
+                    <span class="text-underline"> {{ pedido.tipoEntrega }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Embalaje: </label>
+                    <span class="text-underline"> {{ pedido.paqueteria }}</span>
+                </div>
+                <div class="mb-3 col-6 col-lg-6">
+                    <label>Operador: </label>
+                    <span class="text-underline" *ngIf="operador"> {{ operador.apellido }} {{ operador.nombre }}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <div class="container-hijo">
+            <div class="row">
+                <div class="mb-3">
+                    <div class="table-responsive mb-3">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th class="">Material</th>
+                                    <!-- <th class="">Stock</th> -->
+                                    <th>Cantidad</th>
+                                    <th>Ubicacion</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let producto of productos">
+                                    <td>{{ producto.nombre }}</td>
+                                    <td class="">{{ producto.material }}</td>
+                                    <!-- <td class="">{{ producto.cantidad }}/u</td> -->
+                                    <td class="">{{ producto.cantidadRequerida }}/u</td>
+                                    <td class="">{{ producto.rack }}-{{ producto.sectorRack }}.{{ producto.pisoRack }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row margin">
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" (click)="generatePDF()">Imprimir</button>
+                        <button type="button" class="btn btn-danger" (click)="cambiarEstadoPedido('Devuelto')"
+                            *ngIf="pedido.estado =='Entregado'">Devolver</button>
+                        <button type="button" class="btn btn-danger" (click)="cambiarEstadoPedido('Cancelado')"
+                            *ngIf="pedido.estado !=='Entregado'">Cancelar</button>
+                        <button type="button" class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]"
+                            *ngIf="procesar" [disabled]="pedido.estado =='Entregado'">Procesar</button>
+                        <a class="btn btn-secondary" [routerLink]="['/listar-pedidos']">Atrás</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

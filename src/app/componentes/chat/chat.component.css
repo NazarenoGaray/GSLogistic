@@ -1,0 +1,127 @@
+.chat,.user_info,.msg_cotainer_send,.msg_cotainer {
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.card {
+	height: 500px;
+	border-radius: 15px !important;
+	background-color: rgba(0, 0, 0, 0.473) !important;
+}
+
+.contacts_body {
+	padding: 0.75rem 0 !important;
+	white-space: nowrap;
+}
+
+.msg_card_body,.type_msg,.contacts_body {
+	overflow-y: auto;
+}
+
+.card-header {
+	border-radius: 15px 15px 0 0 !important;
+	border-bottom: 0 !important;
+}
+
+.card-footer {
+	border-radius: 0 0 15px 15px !important;
+	border-top: 0 !important;
+}
+
+.container {
+	align-content: center;
+}
+
+.search,.attach_btn {
+	border-radius: 15px 0 0 15px !important;
+}
+
+.search:focus,.type_msg:focus {
+	box-shadow: none !important;
+	outline: 0px !important;
+}
+
+.type_msg {
+	height: 60px !important;
+}
+#action_menu_btn,.online_icon,.msg_time,.msg_time_send{
+	position: absolute;
+}
+#action_menu_btn {
+	right: 10px;
+	top: 10px;
+	color: white;
+	cursor: pointer;
+	font-size: 20px;
+}
+.attach_btn,.send_btn,.search_btn {
+	cursor: pointer;
+}
+.send_btn,.search_btn,.attach_btn,.type_msg,.search{
+	color: white !important;
+	border: 0 !important;
+	background-color: rgba(0, 0, 0, 0.404) !important;
+}
+.send_btn,.search_btn {
+	border-radius: 0 15px 15px 0 !important;
+}
+.contacts {
+	list-style: none;
+	padding: 0;
+}
+.contacts li {
+	width: 100% !important;
+	padding: 5px 10px;
+	margin-bottom: 15px !important;
+}
+.active {
+	background-color: rgba(0, 0, 0, 0.3);
+	border-top-left-radius: 2rem;
+	border-bottom-left-radius: 2rem;
+}
+.user_img, .img_cont{
+	height: 70px;
+	width: 70px;
+}
+.img_cont,.msg_cotainer_send,.msg_cotainer,.msg_head{
+	position: relative;
+}
+
+.online_icon {
+	height: 15px;
+	width: 15px;
+	background-color: #4cd137;
+	border-radius: 50%;
+	bottom: 0.2em;
+	right: 0.4em;
+}
+.offline {
+	background-color: #c23616 !important;
+}
+.user_info {
+	margin-left: 15px;
+}
+.user_info span {
+	font-size: 20px;
+	color: white;
+}
+.user_info p,.msg_time,.msg_time_send {
+	font-size: 10px;
+	color: rgba(255, 255, 255, 0.6);
+}
+.msg_cotainer_send,.msg_cotainer {
+	margin-right: 10px;
+	border-radius: 25px;
+	padding: 10px;
+}
+.msg_cotainer {
+	background-color: #82ccdd;
+}
+.msg_cotainer_send{
+	background-color: #78e08f;
+}
+.msg_time,
+.msg_time_send {
+	left: 0;
+	bottom: -15px;
+}
