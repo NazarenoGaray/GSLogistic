@@ -49,7 +49,8 @@ export class CargarPedidoComponent {
   tipoEntregaInvalido: boolean = false;
 
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private firestore: AngularFirestore,
     private loadingService: LoadingService

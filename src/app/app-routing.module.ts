@@ -43,6 +43,7 @@ import { ListarPedidosComponent } from './componentes/pedidos/listar-pedidos/lis
 import { PedidoComponent } from './componentes/pedidos/pedido/pedido.component';
 import { ProcesarPedidoComponent } from './componentes/pedidos/procesar-pedido/procesar-pedido.component';
 import { NuevoIngresoComponent } from './componentes/contraseñas/nuevo-ingreso/nuevo-ingreso.component';
+import { ListarConsiltasComponent } from './componentes/consultas/listar-consiltas/listar-consiltas.component';
 
 
 const routes: Routes = [
@@ -75,6 +76,8 @@ const routes: Routes = [
   { path: 'procesar-pedido/:id',component: ProcesarPedidoComponent, canActivate:[EstadoUsuarioGuard,]}, 
   //**************-CHAT-**************
   { path: 'chat',component: ChatComponent,canActivate:[EstadoUsuarioGuard]},
+  //**************-PAGINAS DE CONSULTAS-**************
+  { path: 'listar-consulta',component: ListarConsiltasComponent, canActivate:[EstadoUsuarioGuard,ModificarUsuariosGuard]},
   //**************-PAGINAS DE ERROR-**************
   { path: '400', component: BadRequestComponent  },// error de solicitud
   { path: '401', component: UnauthorizedComponent },// sin logueo

@@ -52,6 +52,10 @@ import { ProcesarPedidoComponent } from './componentes/pedidos/procesar-pedido/p
 import { NuevoIngresoComponent } from './componentes/contraseñas/nuevo-ingreso/nuevo-ingreso.component';
 import { CambiarPasswordComponent } from './componentes/contraseñas/cambiar-password/cambiar-password.component';
 
+import { ListarConsiltasComponent } from './componentes/consultas/listar-consiltas/listar-consiltas.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -86,6 +90,14 @@ import { CambiarPasswordComponent } from './componentes/contraseñas/cambiar-pas
     PedidoComponent,
     ListarPedidosComponent,
     CargarPedidoComponent,
+    ProcesarPedidoComponent,
+    
+    ListarConsiltasComponent,
+
+    NuevoIngresoComponent,
+    CambiarPasswordComponent,
+
+    SpinnerComponent,
     
     GatewayTimeoutComponent,
     ServiceUnavailableComponent,
@@ -95,10 +107,8 @@ import { CambiarPasswordComponent } from './componentes/contraseñas/cambiar-pas
     NotFoundComponent,
     NotImplementedComponent,
     BadRequestComponent,
-    SpinnerComponent,
-    ProcesarPedidoComponent,
-    NuevoIngresoComponent,
-    CambiarPasswordComponent,
+    
+
     
   ],
   imports: [

@@ -7,7 +7,7 @@
     </button>
     <app-spinner *ngIf="getEstado() | async"></app-spinner>
     <div class="collapse navbar-collapse " id="navbarSupportedContent" [ngClass]="{ 'show': isMenuOpen }">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <ng-container *ngIf="isLoggedIn() && usuarioActual">
           <li class="nav-item dropdown" *ngIf="(linkUsuario | async)">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -25,27 +25,27 @@
               Clientes
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink="/listar-clientes" (click)="closeMenu()" 
-                *ngIf="linkClienteL | async">Listar clientes</a></li>
+              <li><a class="dropdown-item" routerLink="/listar-clientes" (click)="closeMenu()"
+                  *ngIf="linkClienteL | async">Listar clientes</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
               <li><a class="dropdown-item" routerLink="/alta-cliente" (click)="closeMenu()"
-                *ngIf="linkClienteA | async">Alta clientes</a></li>
+                  *ngIf="linkClienteA | async">Alta clientes</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown" *ngIf="((linkProductoL | async)  ||(linkProductoC | async))" >
+          <li class="nav-item dropdown" *ngIf="((linkProductoL | async)  ||(linkProductoC | async))">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Productos
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" routerLink="/listar-productos" (click)="closeMenu()"
-                *ngIf="linkProductoL | async">Listar Productos</a></li>
+                  *ngIf="linkProductoL | async">Listar Productos</a></li>
               <li>
                 <hr class="dropdown-divider" *ngIf="linkProductoL | async">
               </li>
               <li><a class="dropdown-item" routerLink="/cargar-producto" (click)="closeMenu()"
-                *ngIf="linkProductoC | async">Cargar Productos</a></li>
+                  *ngIf="linkProductoC | async">Cargar Productos</a></li>
               <li>
                 <hr class="dropdown-divider" *ngIf="linkProductoC | async">
               </li>
@@ -57,30 +57,45 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" routerLink="/listar-pedidos" (click)="closeMenu()"
-                *ngIf="linkPedidoL | async">Listar Pedidos</a></li>
+                  *ngIf="linkPedidoL | async">Listar Pedidos</a></li>
               <li>
                 <hr class="dropdown-divider" *ngIf="linkPedidoL | async">
               </li>
               <li><a class="dropdown-item" routerLink="/cargar-pedido" (click)="closeMenu()"
-                *ngIf="linkPedidoC | async">Cargar Pedido</a></li>
+                  *ngIf="linkPedidoC | async">Cargar Pedido</a></li>
               <li>
                 <hr class="dropdown-divider" *ngIf="linkPedidoC | async">
               </li>
             </ul>
           </li>
-          <li class="nav-item" *ngIf="(linkChat | async)">
-            <a class="nav-link" routerLink="/chat" role="button" (click)="closeMenu()">
-              Chat
+          <li class="nav-item dropdown" *ngIf="(linkChat | async)">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Otros
             </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="nav-link" routerLink="/chat" role="button" (click)="closeMenu()">
+                  Chat
+                </a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" *ngIf="linkPedidoC | async">
+              </li>
+              <li>
+                <a class="nav-link" routerLink="/listar-consulta" role="button" (click)="closeMenu()">
+                  Listar-Consultas
+                </a>
+              </li>
+            </ul>
           </li>
         </ng-container>
         <li class="nav-item ">
-          <a class="nav-link" routerLink="/nosotros" role="button"(click)="closeMenu()">
+          <a class="nav-link" routerLink="/nosotros" role="button" (click)="closeMenu()">
             Nosotros
           </a>
         </li>
         <li class="nav-item  ">
-          <a class="nav-link" routerLink="/contacto" role="button" aria-expanded="false"  (click)="closeMenu()">
+          <a class="nav-link" routerLink="/contacto" role="button" aria-expanded="false" (click)="closeMenu()">
             Contacto
           </a>
         </li>
@@ -93,12 +108,14 @@
               {{usuarioActual.displayName}}
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" (click)="detallesUsuario(usuarioActual.id)" routerLink="*" (click)="closeMenu()">Perfil</a></li>
+              <li><a class="dropdown-item" (click)="detallesUsuario(usuarioActual.id)" routerLink="*"
+                  (click)="closeMenu()">Perfil</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
               <li>
-                <a class="dropdown-item " (click)="cerrarSesion()" routerLink="*" (click)="closeMenu()">Cerrar Sesión</a>
+                <a class="dropdown-item " (click)="cerrarSesion()" routerLink="*" (click)="closeMenu()">Cerrar
+                  Sesión</a>
               </li>
             </ul>
           </li>

@@ -9,19 +9,19 @@
                         por algun medio mensionado.</p>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-12">
                         <div class="info-box">
                             <i class="fa fa-map-marker fa-lg"></i>
                             <p>Av. Siempre Viva 1234, Sprinfield, Buenos Aires</p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="info-box mt-4">
                             <i class="fa fa-envelope fa-lg"></i>
                             <p>info@gsl.com<br>contact@gsl.com</p>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="info-box mt-4">
                             <i class="fa fa-phone" aria-hidden="true"></i>
                             <p>+54 11121314 1516 <br>+54 11212224 2526</p>
@@ -30,34 +30,48 @@
                 </div>
 
             </div>
-
+            <!-- ***************FORM******************** -->
             <div class="col-lg-6 container">
-                <form action="forms/contact.php" method="post" role="form" class="">
+                <form [formGroup]="consultaForm" method="post" role="form" class="">
                     <div class="row">
 
-                        <div class="col-lg-6  ">
-                            <input type="text" class="form-control" name="name" id="name" placeholder="Ingrese nombre"
-                                required>
+                        <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
+                            <input type="text" class="form-control" name="nombre" id="nombre"
+                                placeholder="Ingrese nombre" formControlName="nombre" required>
                         </div>
-                        <div class="col-lg-6  ">
-                            <input type="number" class="form-control" name="phonenumber" id="phone" placeholder="Ingrese un Telefono"
-                                required>
+                        <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
+                            <input type="text" class="form-control" name="telefono" id="telefono"
+                                placeholder="Ingrese un Telefono" formControlName="telefono" required>
+                            <div *ngIf="telefonoInvalido">
+                                <small class="text-danger">* Telefono de 8 o 10 numeros.</small>
+                            </div>
                         </div>
-                        <div class="col-lg-6  ">
+
+                        <div class="col-sm-12 col-md-12 col-lg-6 mb-3">
                             <input type="text" class="form-control" name="email" id="email" placeholder="Ingrese Correo"
-                                required>
-                        </div> 
-                        <div class="col-lg-12 form-group ">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Tema"
-                                required>
+                                formControlName="correo" required>
+                            <div *ngIf="correoInvalido">
+                                <small class="text-danger">* ingrese un correo valido.</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-6 mb-3 form-group ">
+                            <select required class="form-select" id="PaqueteTipos"
+                                aria-label="Floating label select example" formControlName="temaConsulta"
+                                (ngModelChange)="verificarForm()">
+                                <option value="" disabled>Seleccione Tipo</option>
+                                <option *ngFor="let temaConsulta of temasConsulta | async" [value]="temaConsulta.tipo">
+                                    {{ temaConsulta.tipo }}
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group mb-3">
-                        <textarea class="form-control" name="message" rows="5" placeholder="Ingrese mensaje"
-                            required></textarea>
+                        <textarea class="form-control" name="message" rows="5" placeholder="Ingrese mensaje" required
+                            formControlName="mensaje" (change)="verificarForm()"></textarea>
                     </div>
-                    <div class="text-center"><button class="btn btn-primary py-2 fs-6  me-2"
-                            type="submit">Enviar</button>
+                    <div class="text-center">
+                        <button class="btn btn-primary py-2 fs-6  me-2" type="button" (click)="enviarConsulta()"
+                            [disabled]="!enviar">Enviar</button>
                     </div>
                 </form>
             </div>

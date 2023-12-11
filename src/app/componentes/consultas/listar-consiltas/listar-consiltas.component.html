@@ -1,0 +1,18 @@
+<div class="lista-mensajes" *ngIf="consultas">
+    <h3>Lista de Consultas</h3>
+    <ul class="lista-consulta">
+        <li class="mensaje-item" *ngFor="let consulta of consultas | async">
+            <div class="info">
+                <div >Nombre: <a class="nombre">{{ consulta.nombre }}</a> </div>
+                <div class="telefono">Telefono: {{ consulta.telefono }}</div>
+                <div class="correo">Correo: {{ consulta.correo }}</div>
+                <div class="tema">Tema: {{ consulta.temaConsulta }}</div>
+                <div class="mensaje">Mensaje: {{ consulta.mensaje }}</div>
+                <div class="date">{{ consulta.fecha }} - {{ consulta.hora }}</div>
+              </div>
+        </li>
+    </ul>
+</div>
+<div class="no-mensajes" *ngIf="!consultas">
+    <p>No hay consultas disponibles.</p>
+</div>

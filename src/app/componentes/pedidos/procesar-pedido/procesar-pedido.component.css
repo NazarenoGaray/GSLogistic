@@ -22,3 +22,13 @@
     border: 1px solid #ccc;
     border-radius: 1rem;
 }
+.btn-naranja {
+    background-color: #ff7300; /* Código de color para naranja */
+    color: #fff; /* Texto en color blanco para mayor contraste */
+    /* Agrega otros estilos según sea necesario */
+  }
+  
+  .btn-naranja:hover {
+    background-color: rgb(204, 99, 0); /* Cambia el color al pasar el ratón sobre el botón */
+    /* Puedes ajustar el tono de naranja al pasar el ratón según tus preferencias */
+  }

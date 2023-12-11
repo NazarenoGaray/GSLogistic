@@ -128,15 +128,23 @@ export class ProcesarPedidoComponent {
     //this.pedido.estado = nuevoEstado;
     switch (nuevoEstado) {
       case 'Nuevo':
-        this.pedido.fechaEntregado = '';
-        this.pedido.horaEntregado = '';
-        const todosProductos = this.productos.every(producto => producto.seleccionado);
-        if (!todosProductos) {
-          alert('No todos los productos requeridos han sido seleccionados.');
-          this.loadingService.hide();
-          return;
+        if(this.pedido.estado='Devuelto'){
+          this.pedido.fechaEntregado = '';
+          this.pedido.horaEntregado = '';
+          this.pedido.fechaDevuelto = '';
+          this.pedido.horaDevuelto = '';
+        }else{
+          this.pedido.fechaEntregado = '';
+          this.pedido.horaEntregado = '';
+          const todosProductos = this.productos.every(producto => producto.seleccionado);
+          if (!todosProductos) {
+            alert('No todos los productos requeridos han sido seleccionados.');
+            this.loadingService.hide();
+            return;
+          }
+          this.actualizarCantidadEnProductosReset();
         }
-        this.actualizarCantidadEnProductosReset();
+        
         break;
       case 'Preparado':
         this.pedido.fechaEntregado = '';
@@ -163,17 +171,17 @@ export class ProcesarPedidoComponent {
         this.pedido.horaEntregado = new Date().toLocaleTimeString();
         break;
       case 'Devuelto':
-          this.pedido.fechaDevuelto = new Date().toLocaleDateString();
-          this.pedido.horaDevuelto = new Date().toLocaleTimeString();
-          const todosProductosDevuelto = this.productos.every(producto => producto.seleccionado);
-          if (!todosProductosDevuelto) {
-            alert('No todos los productos requeridos han sido seleccionados.');
-            this.loadingService.hide();
-            return;
-          }
-          // Actualiza la cantidad disponible en Firestore
-          this.actualizarCantidadEnProductosReset();
-          break;
+        this.pedido.fechaDevuelto = new Date().toLocaleDateString();
+        this.pedido.horaDevuelto = new Date().toLocaleTimeString();
+        const todosProductosDevuelto = this.productos.every(producto => producto.seleccionado);
+        if (!todosProductosDevuelto) {
+          alert('No todos los productos requeridos han sido seleccionados.');
+          this.loadingService.hide();
+          return;
+        }
+        // Actualiza la cantidad disponible en Firestore
+        this.actualizarCantidadEnProductosReset();
+        break;
     }
 
     this.firestore.collection('pedidos').doc(this.pedido.id).update({
@@ -217,7 +225,7 @@ export class ProcesarPedidoComponent {
     this.productos.forEach(producto => {
       if (producto.seleccionado && producto.cantidadRequerida) {
         const nuevaCantidad = producto.cantidad + producto.cantidadRequerida;
-        console.log("nuevaCantidad: ",nuevaCantidad);
+        console.log("nuevaCantidad: ", nuevaCantidad);
         this.firestore.collection('productos').doc(producto.id).update({
           cantidad: nuevaCantidad
         }).then(() => {
@@ -228,7 +236,7 @@ export class ProcesarPedidoComponent {
       }
     });
   }
-  
+
   getEstado() {
     return this.loadingService.getEstado();
   }
