@@ -68,13 +68,13 @@
                                     <td class="">{{ producto.cantidadRequerida }}/u</td>
                                     <td class="">{{ producto.rack }}-{{ producto.sectorRack }}.{{ producto.pisoRack }}
                                     </td>
-                                  <td *ngIf="pedido.estado =='Nuevo'">
+                                  <td *ngIf="pedido.estado =='Nuevo'||pedido.estado =='Entregado'">
                                         <input type="checkbox" [checked]="producto.seleccionado" (change)="toggleSeleccionProducto(producto)" >
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div>[routerLink]="['/areas']"
                 </div>
                 <div class="row margin">
                     <div class="d-flex justify-content-between">
@@ -83,7 +83,8 @@
                         <a class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Embalado')" *ngIf="pedido.estado =='Preparado'">Embalado</a>
                         <a class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('En camino')" *ngIf="pedido.estado =='Embalado'">En camino</a>
                         <a class="btn btn-success" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Entregado')" *ngIf="pedido.estado =='En camino'">Entregado</a>
-                        <a class="btn btn-warning" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Nuevo')" *ngIf="pedido.estado =='Entregado'">Reset</a>
+                        <button class="btn btn-warning" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Nuevo')" *ngIf="pedido.estado =='Entregado'" [disabled]="!todosProductosSeleccionados">Reset</button>
+                        <button class="btn btn-warning" [routerLink]="['/procesar-pedido', pedido.id]" (click)="cambiarEstadoPedido('Devuelto')" *ngIf="pedido.estado =='Entregado'" [disabled]="!todosProductosSeleccionados">Reset</button>
                         <a class="btn btn-secondary" [routerLink]="['/listar-pedidos']">Atrás</a>
                     </div>
                 </div>

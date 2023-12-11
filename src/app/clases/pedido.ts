@@ -11,7 +11,8 @@ export class Pedido {
       public fecha:string,
       public hora:string,
       public idCreador:string,
-   
+      public fechaDevuelto:string,
+      public horaDevuelto:string,
 
       public fechaEntregado:string,
       public horaEntregado:string,

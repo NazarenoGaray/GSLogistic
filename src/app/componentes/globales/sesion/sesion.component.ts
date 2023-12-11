@@ -134,7 +134,7 @@ export class SesionComponent {
       fechaIngreso: new Date().toLocaleDateString(),
       horaIngreso: new Date().toLocaleTimeString(),
       fecha: new Date().toLocaleDateString(),
-      hota: new Date().toLocaleTimeString(),
+      hora: new Date().toLocaleTimeString(),
       estado: 'Deshabilitado',
       cuil: '',
       rol: 'Nuevo',

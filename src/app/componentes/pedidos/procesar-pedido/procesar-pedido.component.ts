@@ -139,6 +139,8 @@ export class ProcesarPedidoComponent {
         this.actualizarCantidadEnProductosReset();
         break;
       case 'Preparado':
+        this.pedido.fechaEntregado = '';
+        this.pedido.horaEntregado = '';
         const todosProductosSeleccionados = this.productos.every(producto => producto.seleccionado);
         if (!todosProductosSeleccionados) {
           alert('No todos los productos requeridos han sido seleccionados.');
@@ -148,14 +150,30 @@ export class ProcesarPedidoComponent {
         // Actualiza la cantidad disponible en Firestore
         this.actualizarCantidadEnProductos();
         break;
-      // case 'Embalado':
-      //   break;
-      // case 'En camino':
-      //   break;
+      case 'Embalado':
+        this.pedido.fechaEntregado = '';
+        this.pedido.horaEntregado = '';
+        break;
+      case 'En camino':
+        this.pedido.fechaEntregado = '';
+        this.pedido.horaEntregado = '';
+        break;
       case 'Entregado':
         this.pedido.fechaEntregado = new Date().toLocaleDateString();
         this.pedido.horaEntregado = new Date().toLocaleTimeString();
         break;
+      case 'Devuelto':
+          this.pedido.fechaDevuelto = new Date().toLocaleDateString();
+          this.pedido.horaDevuelto = new Date().toLocaleTimeString();
+          const todosProductosDevuelto = this.productos.every(producto => producto.seleccionado);
+          if (!todosProductosDevuelto) {
+            alert('No todos los productos requeridos han sido seleccionados.');
+            this.loadingService.hide();
+            return;
+          }
+          // Actualiza la cantidad disponible en Firestore
+          this.actualizarCantidadEnProductosReset();
+          break;
     }
 
     this.firestore.collection('pedidos').doc(this.pedido.id).update({
@@ -199,7 +217,7 @@ export class ProcesarPedidoComponent {
     this.productos.forEach(producto => {
       if (producto.seleccionado && producto.cantidadRequerida) {
         const nuevaCantidad = producto.cantidad + producto.cantidadRequerida;
-
+        console.log("nuevaCantidad: ",nuevaCantidad);
         this.firestore.collection('productos').doc(producto.id).update({
           cantidad: nuevaCantidad
         }).then(() => {
@@ -210,7 +228,7 @@ export class ProcesarPedidoComponent {
       }
     });
   }
-
+  
   getEstado() {
     return this.loadingService.getEstado();
   }
